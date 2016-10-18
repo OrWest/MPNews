@@ -23,6 +23,4 @@
 (defn -main [& args]
   (start-web-server! (wrap-resource web-handler "public")))
 
-(defn firstNikitos[]
-  (println("First function on git")))
 
