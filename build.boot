@@ -1,9 +1,9 @@
 (set-env!
   :source-paths #{"src/clj" "src/cljs"}
   :resource-paths #{"resources"}
-  :dependencies '[[adzerk/boot-cljs "1.7.228-1" :scope "test"]
-                  [adzerk/boot-reload "0.4.12" :scope "test"]
-                  [adzerk/boot-cljs-repl "0.3.2" :scope "test"]
+  :dependencies '[[adzerk/boot-cljs "1.7.228-2" :scope "test"]
+                  [adzerk/boot-reload "0.4.13" :scope "test"]
+                  [adzerk/boot-cljs-repl "0.3.3" :scope "test"]
                   ; for boot-cljs-repl
                   [com.cemerick/piggieback "0.2.1" :scope "test"]
                   [weasel "0.7.0" :scope "test"]
@@ -12,7 +12,8 @@
                   [org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.9.227"]
                   [reagent "0.6.0-rc"]
-                  [ring "1.4.0"]])
+                  [ring "1.4.0"]
+                  [compojure "1.5.1"]])
 
 (task-options!
   pom {:project 'mpnews
