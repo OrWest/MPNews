@@ -1,0 +1,84 @@
+body{
+    margin-left: 20%;
+    margin-right: 23%;
+    padding: 10px;
+    //border: dotted 1px darkred;
+    background-image: url("images/fon.jpg");
+}
+
+
+.head{
+    font-size: 2.5em;
+    font-family: "Bradley Hand ITC";
+    text-align: center;
+    font-style: oblique;
+    margin-left: 350px;
+
+}
+
+.line{
+    border-bottom: thick dotted black;
+}
+
+
+.menu-left {
+    position: fixed; /* Фиксированное положение */
+    left: 3%; /* Расстояние от правого края окна браузера */
+    top: 5%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background-image: url("images/fon.jpg"); /* Цвет фона */
+
+}
+
+.menu-right{
+    position: fixed; /* Фиксированное положение */
+    right: 3%; /* Расстояние от правого края окна браузера */
+    top: 25%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background-image: url("images/fon.jpg"); /* Цвет фона */
+}
+
+.menu-center{
+    position: fixed; /* Фиксированное положение */
+    left: 40%;
+    top: 45%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background-image: url("images/fon.jpg"); /* Цвет фона */
+}
+
+input[type="search"]{
+    border: 1px solid #cc4c22;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    height: 24px;
+    width: 220px;
+    color: #000000;
+    font-size: 11px;
+    font-family: Tahoma;
+    background: #ffffff !important;
+    outline: none;
+}
+input[type="submit"]{
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    height: 24px;
+    width: 160px;
+    color: black;
+    font-size: 11px;
+    font-family: Tahoma;
+    background: lawngreen !important;
+    outline: none;
+}
+
+#footer {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 10px; /* Поля вокруг текста */
+    background: #92b54d; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+}/* Фоновый рисунок  */
