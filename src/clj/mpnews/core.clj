@@ -16,8 +16,8 @@
 
 ;https://github.com/weavejester/compojure/wiki
 (defroutes app-routes
-  (GET "/" [] (redirect "index.html"))
-  (route/not-found "Not Found"))
+  (GET "/" [] (redirect "mpnews.html"))
+  (route/not-found "Not Found8"))
 
 (defn dev-main []
   (when-not @web-server
