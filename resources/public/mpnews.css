@@ -4,6 +4,7 @@ body{
     padding: 10px;
     //border: dotted 1px darkred;
     background-image: url("images/fon.jpg");
+    margin-bottom: 5%;
 }
 
 
@@ -82,3 +83,27 @@ input[type="submit"]{
     color: #fff; /* Цвет текста */
     width: 100%; /* Ширина слоя */
 }/* Фоновый рисунок  */
+
+.user-left{
+    position: absolute; /* Фиксированное положение */
+    left: 20%;
+    top: 35%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background-image: url("images/fon.jpg");
+}
+
+.news-centre{
+    position: absolute; /* Фиксированное положение */
+    left: 45%;
+    top: 35%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background-image: url("images/fon.jpg");
+}
+
+.vender-right{
+    position: absolute; /* Фиксированное положение */
+    left: 75%;
+    top: 35%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background-image: url("images/fon.jpg");
+}
