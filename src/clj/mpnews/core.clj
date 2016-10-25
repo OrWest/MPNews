@@ -6,7 +6,9 @@
             [clojure.java.io :as io]
             
             [compojure.core :refer :all]
-            [compojure.route :as route])
+            [compojure.route :as route]
+            
+             [mpnews.database :as db])
   (:gen-class))
 
 (defonce web-server (atom nil))
@@ -14,10 +16,18 @@
 (defn start-web-server! [handler]
   (reset! web-server (run-jetty handler {:port 3000 :join? false})))
 
+(defn insert-in-db []
+  (println "Inserted!")
+  (db/my-insert))
+  
+
 ;https://github.com/weavejester/compojure/wiki
 (defroutes app-routes
   (GET "/" [] (redirect "mpnews.html"))
+  (GET "/bd" [] (insert-in-db))
   (route/not-found "Not Found"))
+
+; ----------
 
 (defn dev-main []
   (when-not @web-server

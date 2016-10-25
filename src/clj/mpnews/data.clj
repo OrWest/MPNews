@@ -1,4 +1,4 @@
-(ns mpnews.core)
+(ns mpnews.date)
 
 (defrecord User
   [login
