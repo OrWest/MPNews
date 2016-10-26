@@ -1,11 +1,11 @@
--- Create syntax for TABLE 'article'
 CREATE TABLE `article` (
   `id_article` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` text NOT NULL,
-  `description` text NOT NULL,
-  `create_at` date NOT NULL,
-  `url` text,
-  `image_url` text,
+  `title` text,
+  `description` text,
+  `pub_date` datetime NOT NULL,
+  `link` text NOT NULL,
+  `image_link` text NOT NULL,
+  `category_name` text,
   PRIMARY KEY (`id_article`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
