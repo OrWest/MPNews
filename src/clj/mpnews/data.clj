@@ -1,10 +1,10 @@
-(ns mpnews.date)
+(ns mpnews.data)
 
 (defrecord User
   [login
-   firstName
-   lastName
-   passwordHash])
+   email
+   pass-hash
+   pass-salt])
 
 (defrecord News
   [header

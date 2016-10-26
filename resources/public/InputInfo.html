@@ -27,7 +27,7 @@
         </div>
 
         <div class="user-left">
-            <form method="get" action="">
+            <form method="post" action="/user">
                 <fieldset>
                     <legend>Данные пользователя:</legend>
 
@@ -42,9 +42,12 @@
                     <input type="email" id="email" name="email" placeholder="exapmle@exam.ru"><br>
 
                     <input type="submit" id="addUser" name="addUser" value="Добавить пользователя"><br>
+                </fieldset>
+            </form>
+            <form method="get" action="/user">
+                <fieldset>
                     <input type="submit" id="selectUser" name="selectAddUser" value="Просмотреть"><br><br>
                 </fieldset>
-
             </form>
         </div>
 
