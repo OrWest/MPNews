@@ -31,8 +31,6 @@
                 <fieldset>
                     <legend>Данные пользователя:</legend>
 
-                    <label for="email">Email:</label><br>
-                    <input type="email" id="email" name="email" placeholder="exapmle@exam.ru"><br>
 
                     <label for="login">Логин:</label><br>
                     <input type="text" id="login" name="login" placeholder="atikin"><br>
@@ -40,7 +38,11 @@
                     <label for="password">Пароль:</label><br>
                     <input type="password" id="password" name="password"><br><br>
 
-                    <input type="submit" id="addUser" name="addUser" value="Добавить пользователя">
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" placeholder="exapmle@exam.ru"><br>
+
+                    <input type="submit" id="addUser" name="addUser" value="Добавить пользователя"><br>
+                    <input type="submit" id="selectUser" name="selectAddUser" value="Просмотреть"><br><br>
                 </fieldset>
 
             </form>
@@ -57,18 +59,20 @@
                     <label for="description">Описание:</label><br>
                     <textarea id="description" name="description" cols="22" rows="5"></textarea><br>
 
-                    <label for="create_at">Дата напсания:</label><br>
-                    <input type="date" id="create_at" name="create_at"><br>
+                    <label for="link">URL:</label><br>
+                    <input type="text" id="link" name="link" placeholder="https://lenta.ru/news/usa/"><br>
 
-                    <label for="url">URL:</label><br>
-                    <input type="text" id="url" name="url" placeholder="https://lenta.ru/news/usa/"><br>
+                    <label for="image_link">Выбрать изображение:</label><br>
+                    <input type="text" id="image_link" name="image_link"><br>
 
-                    <label for="ImageURL">Выбрать изображение:</label><br>
-                    <input type="file" id="ImageURL" name="ImageURL"><br><br>
 
-                    <input type="submit" id="addNews" name="addNews" value="Добавить новость">
+                    <label for="category_name">Введите категорию:</label><br>
+                    <input type="text" id="category_name" name="category_name"><br><br>
 
-                </fieldset>
+                    <input type="submit" id="addNews" name="addNews" value="Добавить новость"><br>
+                    <input type="submit" id="selectNews" name="selectNews" value="Просмотреть"><br>
+
+                </fieldset><br><br>
             </form>
         </div>
 
@@ -84,7 +88,8 @@
                     <label for="RSS_path">Путь RSS:</label><br>
                     <input type="text" id="RSS_path" name="RSS_path"><br><br>
 
-                    <input type="submit" id="addVendor" name="addVendor" value="Добавить поставщика">
+                    <input type="submit" id="addVendor" name="addVendor" value="Добавить поставщика"><br>
+                    <input type="submit" id="selectVender" name="selectVender" value="Просмотреть"><br><br>
                 </fieldset>
             </form>
         </div>
