@@ -19,8 +19,8 @@
   (reset! web-server (run-jetty handler {:port 3000 :join? false})))
 
 (defn insert-new-user [login password email]
-  (def user (User. login email password "some salt"))
-  (db/insert-user [user]))
+  (def user (User. login email password "salt"))
+  (db/insert-user user))
   
 
 ;https://github.com/weavejester/compojure/wiki

@@ -6,10 +6,15 @@
    pass-hash
    pass-salt])
 
-(defrecord News
-  [header
+(defrecord Article
+  [title
    description
-   imageURL
-   text
-   createdAt])
+   link
+   image-link
+   pubdate
+   category-name])
+
+(defrecord Vendor
+  [name
+   rss-path])
    

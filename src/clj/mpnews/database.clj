@@ -7,25 +7,16 @@
                :user "root"
                :password ""})
 
-(defn my-insert []
-  (db/insert! mysql-db :fruit 
-    {:name "Apple" :appearance "rosy" :cost 24}
-    {:name "Orange" :appearance "round" :cost 49}))
-;; ({:generated_key 1} {:generated_key 2})
-
-(defn insert-user [user]
-  (println user)
-  (db/insert! mysql-db :user
-    {:login (:login user) 
-     :email (:email user) 
-     :pass_hash (:pass-hash user) 
-     :pass_salt (:pass-salt user)}))
-  
-
 (defn users []
   (db/query mysql-db ["select * from user"]))
 
-;(j/query mysql-db
-;  ["select * from fruit where appearance = ?" "rosy"]
-;  :row-fn :cost)
-; (24)
+(defn user-by-id [id]
+  (db/query mysql-db ["select * from user where id_user = ?" id]))
+
+(defn insert-user [user]
+  (def generated (db/insert! mysql-db :user 
+                   {:login (:login user) 
+                    :email (:email user) 
+                    :pass_hash (:pass-hash user) 
+                    :pass_salt (:pass-salt user)}))
+  (user-by-id (:generated_key (nth generated 0))))
