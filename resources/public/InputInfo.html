@@ -45,14 +45,12 @@
                 </fieldset>
             </form>
             <form method="get" action="/user">
-                <fieldset>
-                    <input type="submit" id="selectUser" name="selectAddUser" value="Просмотреть"><br><br>
-                </fieldset>
+                <input type="submit" id="selectUser" name="selectAddUser" value="Просмотреть">
             </form>
         </div>
 
         <div class="news-centre">
-            <form method="post" action="">
+            <form method="post" action="/article">
                 <fieldset>
                     <legend>Данные о новостях:</legend>
 
@@ -73,15 +71,18 @@
                     <input type="text" id="category_name" name="category_name"><br><br>
 
                     <input type="submit" id="addNews" name="addNews" value="Добавить новость"><br>
-                    <input type="submit" id="selectNews" name="selectNews" value="Просмотреть"><br>
 
-                </fieldset><br><br>
+                </fieldset>
             </form>
+            <form method="get" action="/article">
+                <input type="submit" id="selectNews" name="selectNews" value="Просмотреть">
+            </form>
+            <br><br><br><br>
         </div>
 
 
         <div class="vender-right">
-            <form method="post" action="">
+            <form method="post" action="/vendor">
                 <fieldset>
                     <legend>Данные о поставщике:</legend>
 
@@ -92,8 +93,10 @@
                     <input type="text" id="RSS_path" name="RSS_path"><br><br>
 
                     <input type="submit" id="addVendor" name="addVendor" value="Добавить поставщика"><br>
-                    <input type="submit" id="selectVender" name="selectVender" value="Просмотреть"><br><br>
                 </fieldset>
+            </form>
+            <form method="get" action="/vendor">
+                    <input type="submit" id="selectVender" name="selectVender" value="Просмотреть">
             </form>
         </div>
 

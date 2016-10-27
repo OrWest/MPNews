@@ -16,7 +16,8 @@
                   [compojure "1.5.1"]
                   ; DB
                   [mysql/mysql-connector-java "5.1.25"]
-                  [org.clojure/java.jdbc "0.3.5"]])
+                  [org.clojure/java.jdbc "0.3.5"]
+                  [simple-time "0.2.0"]])
 
 (task-options!
   pom {:project 'mpnews
