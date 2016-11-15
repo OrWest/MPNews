@@ -37,8 +37,8 @@
     (watch)
     (reload :asset-path "public"
             :on-jsload 'mpnews.core/init)
-    (cljs-repl)
-    (cljs :source-map true :optimizations :none)
+    ;(cljs-repl)
+    ;(cljs :source-map true :optimizations :none)
     (target)
     (with-pre-wrap fileset
       (mpnews.core/-main)

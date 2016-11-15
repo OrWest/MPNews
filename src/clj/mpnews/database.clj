@@ -43,7 +43,7 @@
                     :description (:description article)
                     :link (:link article)
                     :image_link (:image-link article)
-                    :pub_date (java.sql.Date (:pubdate article))
+                    :pub_date (:pubdate article)
                     :category_name (:category article)}))
   (article-by-id (:generated_key (nth generated 0))))
   

@@ -26,8 +26,8 @@
   (db/insert-user user))
 
 (defn insert-new-article [title decription link image-link category]
-  ;(def now (t/format (t/now) "dd.MM.yyyy HH:mm"))
-  (def article (Article. title decription link image-link (java.util.Date.) category))
+  (def now (t/format (t/now) "yyyy-MM-dd HH:mm"))
+  (def article (Article. title decription link image-link now category))
   (db/insert-article article))
 
 ;; https://github.com/weavejester/compojure/wiki
