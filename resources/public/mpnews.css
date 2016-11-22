@@ -71,8 +71,15 @@ input[type="submit"]{
     color: black;
     font-size: 11px;
     font-family: Tahoma;
-    background: lawngreen !important;
+    background: lawngreen;
+/*!important;*/
     outline: none;
+}
+
+input[type=submit]:hover{
+    color: #ff2b1d;
+    background:  darkkhaki;
+    transition: all 1.5s;
 }
 
 #footer {
@@ -106,4 +113,15 @@ input[type="submit"]{
     top: 35%; /* Расстояние сверху */
     padding: 10px; /* Поля вокруг текста */
     background-image: url("images/fon.jpg");
+}
+
+a:hover{
+    color: darkgoldenrod;
+    font-family: "Segoe Script";
+    font-size: 1.07em;
+}
+
+a{
+    font-size: 1.5em;
+    color: darkblue;
 }
