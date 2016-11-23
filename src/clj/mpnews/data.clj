@@ -3,16 +3,16 @@
 (defrecord User
   [login
    email
-   pass-hash
-   pass-salt])
+   pass_hash
+   pass_salt])
 
 (defrecord Article
   [title
    description
    link
-   image-link
-   pubdate
-   category-name])
+   image_link
+   pub_date
+   category_name])
 
 (defrecord Vendor
   [name

@@ -16,11 +16,7 @@
   (db/query mysql-db ["select * from user where id_user = ?" id]))
 
 (defn insert-user [user]
-  (def generated (db/insert! mysql-db :user 
-                   {:login (:login user) 
-                    :email (:email user) 
-                    :pass_hash (:pass-hash user) 
-                    :pass_salt (:pass-salt user)}))
+  (def generated (db/insert! mysql-db :user user))
   (user-by-id (:generated_key (nth generated 0))))
 
 ; Vendor
@@ -33,9 +29,7 @@
 
 
 (defn insert-vendor [vendor]
-  (def generated (db/insert! mysql-db :vendor
-                   {:name (:name vendor)
-                    :RSS_path (:RSS_path vendor)}))
+  (def generated (db/insert! mysql-db :vendor vendor))
 
   (vendor-by-id (:generated_key (nth generated 0))))
 
@@ -48,14 +42,7 @@
   (db/query mysql-db ["select * from article where id_article = ?" id]))
 
 (defn insert-article [article]
-  (println (:pub_date article))
-  (def generated (db/insert! mysql-db :article
-                   {:title (:title article)
-                    :description (:description article)
-                    :link (:link article)
-                    :image_link (:image-link article)
-                    :pub_date (:pubdate article)
-                    :category_name (:category article)}))
+  (def generated (db/insert! mysql-db :article article))
   (article-by-id (:generated_key (nth generated 0))))
   
 
