@@ -7,44 +7,53 @@
                :user "root"
                :password ""})
 
+; Basic
+
+(defn get-objects [objectKey]
+  (db/query mysql-db [(str "select * from " (name objectKey))]))
+
+(defn get-object-by-id [objectKey id]
+  (db/query mysql-db [(str "select * from " (name objectKey) " where id_" (name objectKey) " = ?") id]))
+
+(defn insert-object [objectKey object]
+   (let [generated (db/insert! mysql-db objectKey object)]
+    (get-object-by-id (name objectKey) (:generated_key (nth generated 0)))))
+
 ; User
 
 (defn users []
-  (db/query mysql-db ["select * from user"]))
+  (get-objects :user))
 
 (defn user-by-id [id]
-  (db/query mysql-db ["select * from user where id_user = ?" id]))
+  (get-object-by-id :user id))
 
 (defn insert-user [user]
-  (let [generated (db/insert! mysql-db :user user)]
-    (user-by-id (:generated_key (nth generated 0)))))
+  (insert-object :user user))
   
 
 ; Vendor
 
 (defn vendors []
-  (db/query mysql-db ["select * from vendor"]))
+  (get-objects :vendor))
 
 (defn vendor-by-id [id]
-  (db/query mysql-db ["select * from vendor where id_vendor= ?" id]))
+  (get-object-by-id :vendor id))
 
 
 (defn insert-vendor [vendor]
-  (let [generated (db/insert! mysql-db :vendor vendor)]
-    (vendor-by-id (:generated_key (nth generated 0)))))
+  (insert-object :vendor vendor))
+
 
 
 ; Article
 
 (defn articles []
-  (db/query mysql-db ["select * from article"]))
+    (get-objects :article))
 
 (defn article-by-id [id]
-  (db/query mysql-db ["select * from article where id_article = ?" id]))
+    (get-object-by-id :article id))
 
 (defn insert-article [article]
-  (let [generated (db/insert! mysql-db :article article)]
-    (article-by-id (:generated_key (nth generated 0)))))
-  
+  (insert-object :article article))
   
 

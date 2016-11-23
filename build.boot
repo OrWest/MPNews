@@ -46,7 +46,7 @@
 
 (deftask build []
   (comp
-    (cljs :optimizations :advanced)
+    ;(cljs :optimizations :advanced)
     (aot)
     (pom)
     (uber)
