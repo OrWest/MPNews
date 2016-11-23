@@ -80,6 +80,17 @@
 
 
 
+(defn vendor-by-id [id]
+  (db/query mysql-db ["select * from vendor where id_vendor= ?" id]))
+
+
+(defn insert-vendor [vendor]
+  (def generated (db/insert! mysql-db :vendor
+                   {:name (:name vendor)
+                    :RSS_path (:RSS_path vendor)}))
+
+  (vendor-by-id (:generated_key (nth generated 0))))
+
 ; Article
 
 
