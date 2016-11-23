@@ -16,8 +16,9 @@
   (db/query mysql-db ["select * from user where id_user = ?" id]))
 
 (defn insert-user [user]
-  (def generated (db/insert! mysql-db :user user))
-  (user-by-id (:generated_key (nth generated 0))))
+  (let [generated (db/insert! mysql-db :user user)]
+    (user-by-id (:generated_key (nth generated 0)))))
+  
 
 ; Vendor
 
@@ -29,9 +30,9 @@
 
 
 (defn insert-vendor [vendor]
-  (def generated (db/insert! mysql-db :vendor vendor))
+  (let [generated (db/insert! mysql-db :vendor vendor)]
+    (vendor-by-id (:generated_key (nth generated 0)))))
 
-  (vendor-by-id (:generated_key (nth generated 0))))
 
 ; Article
 
@@ -42,7 +43,8 @@
   (db/query mysql-db ["select * from article where id_article = ?" id]))
 
 (defn insert-article [article]
-  (def generated (db/insert! mysql-db :article article))
-  (article-by-id (:generated_key (nth generated 0))))
+  (let [generated (db/insert! mysql-db :article article)]
+    (article-by-id (:generated_key (nth generated 0)))))
+  
   
 
