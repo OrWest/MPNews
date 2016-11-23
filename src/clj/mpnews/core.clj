@@ -22,17 +22,21 @@
 ;; routes handle
 
 (defn insert-new-user [login password email]
-  (def user (User. login email password "salt"))
-  (db/insert-user user))
+  (let [user (User. login email password "salt")]
+    (db/insert-user user)))
+  
 
 (defn insert-new-article [title decription link image-link category]
-  (def now (t/format (t/now) "yyyy-MM-dd HH:mm"))
-  (def article (Article. title decription link image-link now category))
-  (db/insert-article article))
+  (let [now (t/format (t/now) "yyyy-MM-dd HH:mm")]
+    (let [article (Article. title decription link image-link now category)]
+      (db/insert-article article))))
+  
+  
 
 (defn insert-new-vendor [name RSS_path]
-  (def vendor (Vendor. name RSS_path))
-  (db/insert-vendor vendor))
+  (let [vendor (Vendor. name RSS_path)]
+    (db/insert-vendor vendor)))
+  
 
 ;; https://github.com/weavejester/compojure/wiki
 (defroutes app-routes
