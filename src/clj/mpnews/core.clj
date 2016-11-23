@@ -30,13 +30,17 @@
   (def article (Article. title decription link image-link now category))
   (db/insert-article article))
 
+(defn insert-new-vendor [name RSS_path]
+  (def vendor (Vendor. name RSS_path))
+  (db/insert-vendor vendor))
+
 ;; https://github.com/weavejester/compojure/wiki
 (defroutes app-routes
   (GET "/" [] (redirect "mpnews.html"))
   (GET "/user" []  (db/users))
   (POST "/user" [login password email] (insert-new-user login password email))
   (GET "/vendor" [] (db/vendors))
-  (POST "/vendor" [])
+  (POST "/vendor" [name RSS_path] (insert-new-vendor name RSS_path))
   (GET "/article" [] (db/articles))
   (POST "/article" [title description link image_link category_name]
     (insert-new-article title description link image_link category_name))
