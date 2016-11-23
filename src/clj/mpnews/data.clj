@@ -16,5 +16,5 @@
 
 (defrecord Vendor
   [name
-   rss-path])
+   RSS_path])
    

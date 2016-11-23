@@ -40,7 +40,7 @@
   (GET "/user" []  (db/users))
   (POST "/user" [login password email] (insert-new-user login password email))
   (GET "/vendor" [] (db/vendors))
-  (POST "/vendor" [name RSS_path] (insert-new-vendor name RSS_path))
+  (POST "/vendor" [nameVendor RSS_path] (insert-new-vendor nameVendor RSS_path))
   (GET "/article" [] (db/articles))
   (POST "/article" [title description link image_link category_name]
     (insert-new-article title description link image_link category_name))
