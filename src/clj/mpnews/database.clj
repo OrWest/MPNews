@@ -1,6 +1,5 @@
 (ns mpnews.database
-  (:require [clojure.java.jdbc :as db]
-            [mpnews.data :refer :all]))
+  (:require [clojure.java.jdbc :as db]))
 
 (def mysql-db {:subprotocol "mysql"
                :subname "//127.0.0.1:3306/MPNews"
@@ -28,7 +27,8 @@
   (get-object-by-id :user id))
 
 (defn insert-user [user]
-  (insert-object :user user))
+  (let [clear-user (dissoc user :password)]
+    (insert-object :user clear-user)))
   
 
 ; Vendor
