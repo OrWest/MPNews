@@ -26,5 +26,5 @@
 
 (defn -main [& args]
   (start-web-server! (wrap-resource app "public"))
-  (log/log "MPN" "Hi"))
+  (log/log "core" "Server has been launched."))
   
