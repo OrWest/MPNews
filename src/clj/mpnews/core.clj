@@ -6,7 +6,7 @@
            
             [clojure.java.io :as io]
             
-            
+            [mpnews.log :as log]
             [mpnews.routes :as routes])
   (:gen-class))
 
@@ -25,5 +25,6 @@
     (start-web-server! (wrap-file app "target/public"))))
 
 (defn -main [& args]
-  (start-web-server! (wrap-resource app "public")))
+  (start-web-server! (wrap-resource app "public"))
+  (log/log "MPN" "Hi"))
   
