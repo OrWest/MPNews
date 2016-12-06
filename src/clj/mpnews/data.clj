@@ -3,7 +3,8 @@
 ; Helper
 
 (defn empty-validation [value]
-  (> (count value) 0))
+  (let [pattern #"^\S+$"] 
+    (not (nil? (re-find pattern value)))))
 
 (defn email-validation [email]
   (let [pattern #"^.+@.+\..+$"] 
