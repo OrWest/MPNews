@@ -125,3 +125,13 @@ a{
     font-size: 1.5em;
     color: darkblue;
 }
+
+.viewTable , .viewTable1{
+     margin: 20px;
+     position: relative;
+     top:0px;
+     text-align: right;
+     width: 500px;
+     margin: 0 auto;
+ }
+
