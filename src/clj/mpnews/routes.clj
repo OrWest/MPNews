@@ -5,6 +5,7 @@
             [simple-time.core :as t]
             [clojure.string :as string]
 
+            [mpnews.stat :as stat]
             [mpnews.log :as log]
             [mpnews.data :as v]
             [mpnews.database :as db]
@@ -40,6 +41,7 @@
 (defroutes app-routes
   (GET "/" [] 
     (log/log "routes" "request: GET /")
+    (stat/inc-request-to-main)
     (redirect "mpnews.html"))
   
   (GET "/user" [] 
