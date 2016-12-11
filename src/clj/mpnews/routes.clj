@@ -10,6 +10,7 @@
             [mpnews.data :as v]
             [mpnews.database :as db]
             [mpnews.model :as model]
+            [mpnews.rss :as rss]
             [digest :as dig]))
 
 ;; Handler
@@ -24,14 +25,17 @@
             new-pass-hash (dig/md5 pass-hash-with-salt)
             updateUser (assoc user :pass_hash new-pass-hash :pass_salt salt)
             result (db/insert-user updateUser)]
-              (log/log "routes" "insert-new-user: user inserted")
-              result)
+           (log/log "routes" "insert-new-user: user inserted")
+           result)
       (string/join "|" error))))
       
 
 (defn insert-new-article [article]
+  ;(println "insert" article)
   (let [error (v/article-validation article)]
+   ;((println "error count:" (count error) "\nerrors:" error)
     (if (== (count error) 0) 
+     ;((println "insert in DB")
       (let [result (db/insert-article article)]
         (log/log "routes" "insert-new-user: article inserted")
         result)
@@ -51,6 +55,11 @@
   (GET "/" [] 
     (log/log "routes" "request: GET /")
     (stat/request-to-main)
+    
+    ;(let [feeds (rss/load-feeds)
+    ;      models (rss/parse-entries-to-articles (:entries feeds))
+    ;  (for [article models]
+    ;    (insert-new-article article)))
     (redirect "mpnews.html"))
   
   (GET "/user" [] 
