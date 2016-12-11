@@ -9,7 +9,8 @@
             [mpnews.log :as log]
             [mpnews.data :as v]
             [mpnews.database :as db]
-            [mpnews.model :as model]))
+            [mpnews.model :as model]
+            [digest :as dig]))
 
 ;; Handler
 
@@ -17,31 +18,39 @@
   (let [error (v/user-validation user)]
     
     (if (== (count error) 0) 
-      ((db/insert-user user
-        (log/log "routes" "insert-new-user: user inserted")))
+      (let [salt (dig/md5 (t/format (t/now)))
+            pass-hash (dig/md5 (:password user))
+            pass-hash-with-salt (str pass-hash salt)
+            new-pass-hash (dig/md5 pass-hash-with-salt)
+            updateUser (assoc user :pass_hash new-pass-hash :pass_salt salt)
+            result (db/insert-user updateUser)]
+              (log/log "routes" "insert-new-user: user inserted")
+              result)
       (string/join "|" error))))
       
 
 (defn insert-new-article [article]
   (let [error (v/article-validation article)]
     (if (== (count error) 0) 
-      ((db/insert-article article)
-       (log/log "routes" "insert-new-user: article inserted"))
+      (let [result (db/insert-article article)]
+        (log/log "routes" "insert-new-user: article inserted")
+        result)
       (string/join "|" error))))
   
 
 (defn insert-new-vendor [vendor]
   (let [error (v/vendor-validation vendor)]
     (if (== (count error) 0) 
-      ((db/insert-vendor vendor)
-       (log/log "routes" "insert-new-user: vendor inserted"))
+      (let [result (db/insert-vendor vendor)]
+        (log/log "routes" "insert-new-user: vendor inserted")
+        result)
       (string/join "|" error))))
 
 ;; https://github.com/weavejester/compojure/wiki
 (defroutes app-routes
   (GET "/" [] 
     (log/log "routes" "request: GET /")
-    (stat/inc-request-to-main)
+    (stat/request-to-main)
     (redirect "mpnews.html"))
   
   (GET "/user" [] 

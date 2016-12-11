@@ -14,6 +14,7 @@
                   [reagent "0.6.0-rc"]
                   [ring "1.4.0"]
                   [compojure "1.5.1"]
+                  [digest "1.4.5"]
                   ; DB
                   [mysql/mysql-connector-java "5.1.25"]
                   [org.clojure/java.jdbc "0.3.5"]

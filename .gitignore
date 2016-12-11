@@ -6,3 +6,4 @@ pom.xml.asc
 .*
 !.gitignore
 cljs.js
+log.txt

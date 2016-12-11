@@ -1,9 +1,0 @@
-[Thu Dec 08 15:49:12 MSK 2016][core]: Server has been launched.
-[Thu Dec 08 15:50:30 MSK 2016][routes]: request: GET /
-[Thu Dec 08 15:51:00 MSK 2016][routes]: request: POST /user
-[Thu Dec 08 15:51:00 MSK 2016][routes]: insert-new-user: user inserted
-[Thu Dec 08 15:51:13 MSK 2016][routes]: request: POST /user
-[Thu Dec 08 15:51:13 MSK 2016][routes]: insert-new-user: user inserted
-[Thu Dec 08 15:51:28 MSK 2016][routes]: request: POST /vendor
-[Thu Dec 08 15:51:37 MSK 2016][routes]: request: POST /vendor
-[Thu Dec 08 15:51:45 MSK 2016][routes]: request: POST /vendor

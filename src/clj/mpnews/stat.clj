@@ -8,4 +8,4 @@
 (defn request-to-main [] 
   (swap! request-main-count cloj/inc)
   (if (== (mod @request-main-count request-count-to-log) 0)
-    (l/log "request-count" (str @request-count))))
+    (l/log "request-count" (str @request-main-count))))
