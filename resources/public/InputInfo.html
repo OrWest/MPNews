@@ -95,10 +95,20 @@
 
                     <input type="submit" id="addVendor" name="addVendor" value="Добавить поставщика" ><br>
                 </fieldset>
+				           <form method="get" action="/vendor">
+								<input type="submit" id="selectVender" name="selectVender" value="Просмотреть">
+							</form>
+			</form><br><br><br><br>
+
+			 <form method="post" action="/rss">
+                <fieldset>
+				
+                    <legend>RSS</legend>
+                    <input type="url" name="url" placeholder="https://lenta.ru/news/usa/"><br>
+                    <input type="submit" name="subPOST" value="POST">
+                </fieldset>
             </form>
-            <form method="get" action="/vendor">
-                    <input type="submit" id="selectVender" name="selectVender" value="Просмотреть">
-            </form>
+            
         </div>
 
     </tr>
