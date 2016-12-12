@@ -1,6 +1,7 @@
 (ns mpnews.database
   (:require [clojure.java.jdbc :as db]
-            [mpnews.log :as log]))
+            [mpnews.log :as log]
+            [dsl.core :as dsl]))
 
 (def mysql-db {:subprotocol "mysql"
                :subname "//127.0.0.1:3306/MPNews"
@@ -10,9 +11,9 @@
 ; Basic
 
 (defn get-objects [objectKey]
-  (let [request (str "select * from " (name objectKey))]
-    (log/log "database" (str "query: \"" request "\""))
-    (db/query mysql-db [request])))
+  (let [raw-request '[SELECT * FROM]
+        full-request (conj raw-request objectKey)]
+    (str (dsl/fetch-all mysql-db (dsl/as-sql full-request)))))
 
 (defn get-object-by-id [objectKey id]
   (db/query mysql-db [(str "select * from " (name objectKey) " where id_" (name objectKey) " = ?") id]))
