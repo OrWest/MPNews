@@ -49,5 +49,8 @@
 (defn fetch-all [db relation]
   (jdbc/query db (to-sql-params relation) :result-set-fn vec))
 
+(defn fetch-one [db relation]
+  (first (fetch-all db relation)))
+
 
 

@@ -11,12 +11,14 @@
 ; Basic
 
 (defn get-objects [objectKey]
-  (let [raw-request '[SELECT * FROM]
-        full-request (conj raw-request objectKey)]
-    (str (dsl/fetch-all mysql-db (dsl/as-sql full-request)))))
+  (let [request ['SELECT '* 'FROM objectKey]]
+    (str (dsl/fetch-all mysql-db (dsl/as-sql request)))))
 
 (defn get-object-by-id [objectKey id]
-  (db/query mysql-db [(str "select * from " (name objectKey) " where id_" (name objectKey) " = ?") id]))
+  (let [db-key (keyword (str "id_" (name objectKey))) 
+        request ['SELECT '* 'FROM objectKey 'WHERE db-key '= id]]
+    (str (dsl/fetch-one mysql-db request))))
+  ;(db/query mysql-db [(str "select * from " (name objectKey) " where id_" (name objectKey) " = ?") id]))
 
 (defn insert-object [objectKey object]
    (let [generated (db/insert! mysql-db objectKey object)]
