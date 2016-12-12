@@ -55,11 +55,6 @@
   (GET "/" [] 
     (log/log "routes" "request: GET /")
     (stat/request-to-main)
-    
-    ;(let [feeds (rss/load-feeds)
-    ;      models (rss/parse-entries-to-articles (:entries feeds))
-    ;  (for [article models]
-    ;    (insert-new-article article)))
     (redirect "mpnews.html"))
   
   (GET "/user" [] 
@@ -91,6 +86,14 @@
     (let [now (t/format (t/now) "yyyy-MM-dd HH:mm")]
       (let [article (model/->Article title description link image_link now category_name)]
         (insert-new-article article))))
+  
+  (POST "/rss" [url]
+    (log/log "routes" "request: POST /rss")
+    (let [feeds (rss/load-feeds url)
+          models (rss/parse-entries-to-articles (:entries feeds))]
+      (for [article models]
+        (insert-new-article article))
+      "Articles loaded."))
   
   (route/not-found "Not Found"))
   
