@@ -4,8 +4,8 @@
 
 ; https://news.tut.by/rss/index.rss
 
-(defn load-feeds [] 
-  (reader/build-feed "https://news.tut.by/rss/index.rss" {:lazy? false}))
+(defn load-feeds [url] 
+  (reader/build-feed url {:lazy? false}))
 
 (defn parse-entries-to-articles [entries]
   (for [feed entries]

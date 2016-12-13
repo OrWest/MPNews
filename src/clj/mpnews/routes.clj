@@ -55,16 +55,12 @@
   (GET "/" [] 
     (log/log "routes" "request: GET /")
     (stat/request-to-main)
-    
-    ;(let [feeds (rss/load-feeds)
-    ;      models (rss/parse-entries-to-articles (:entries feeds))
-    ;  (for [article models]
-    ;    (insert-new-article article)))
     (redirect "mpnews.html"))
   
   (GET "/user" [] 
     (log/log "routes" "request: GET /user")
-    (db/users))
+    (string/join "<br>" (db/users)))
+    
   
   (POST "/user" [login password email]
     (log/log "routes" "request: POST /user")
@@ -74,6 +70,7 @@
   
   (GET "/vendor" []
     (log/log "routes" "request: GET /vendor")
+    (string/join "<br>" (db/vendors))
     (db/vendors))
   
   (POST "/vendor" [nameVendor RSS_path]
@@ -84,13 +81,21 @@
   
   (GET "/article" [] 
     (log/log "routes" "request: GET /article")
-    (db/articles))
+    (string/join "<br>" (db/articles)))
   
   (POST "/article" [title description link image_link category_name]
     (log/log "routes" "request: POST /article")
     (let [now (t/format (t/now) "yyyy-MM-dd HH:mm")]
       (let [article (model/->Article title description link image_link now category_name)]
         (insert-new-article article))))
+  
+  (POST "/rss" [url]
+    (log/log "routes" "request: POST /rss")
+    (let [feeds (rss/load-feeds url)
+          models (rss/parse-entries-to-articles (:entries feeds))]
+      (for [article models]
+        (insert-new-article article))
+      "Articles loaded."))
   
   (route/not-found "Not Found"))
   
