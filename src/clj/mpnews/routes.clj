@@ -59,7 +59,8 @@
   
   (GET "/user" [] 
     (log/log "routes" "request: GET /user")
-    (db/users))
+    (string/join "<br>" (db/users)))
+    
   
   (POST "/user" [login password email]
     (log/log "routes" "request: POST /user")
@@ -69,6 +70,7 @@
   
   (GET "/vendor" []
     (log/log "routes" "request: GET /vendor")
+    (string/join "<br>" (db/vendors))
     (db/vendors))
   
   (POST "/vendor" [nameVendor RSS_path]
@@ -79,7 +81,7 @@
   
   (GET "/article" [] 
     (log/log "routes" "request: GET /article")
-    (db/articles))
+    (string/join "<br>" (db/articles)))
   
   (POST "/article" [title description link image_link category_name]
     (log/log "routes" "request: POST /article")

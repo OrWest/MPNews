@@ -1,49 +1,7 @@
 (ns dsl.core
+  (:use [dsl.helper]
+        [dsl.render])
   (:require [clojure.java.jdbc :as jdbc]))
-
-(defrecord Sql [sql args])
-
-(defn- quote-name
-  [s]
-  (let [x (name s)]
-    (if (= "*" x)
-      x
-      (str \` x \`))))
-
-(defn- join-sqls
-  ([] (Sql. "" nil))
-  ([^Sql s1 ^Sql s2] (Sql. (str (.sql s1) " " (.sql s2)) (concat (.args s1) (.args s2)))))
-
-(defprotocol SqlLike
-  (as-sql [this]))
-
-(extend-protocol SqlLike
-
-  Sql
-  (as-sql [this] this)
-
-  Object
-  (as-sql [this] (Sql. "?" [this]))
-
-  clojure.lang.Keyword
-  (as-sql [this] (Sql. (quote-name this) nil))
-
-  clojure.lang.Symbol
-  (as-sql [this] (Sql. (name this) nil))
-  
-  clojure.lang.ARef
-  (as-sql [this] (as-sql @this))
-  
-  clojure.lang.Sequential
-  (as-sql [this] (reduce join-sqls (map as-sql this)))
-
-  nil
-  (as-sql [this] (Sql. "NULL" nil)))
-
-(defn- to-sql-params
-  [relation]
-  (let [{s :sql p :args} (as-sql relation)]
-    (vec (cons s p))))
 
 
 (defn fetch-all [db relation]
@@ -53,4 +11,35 @@
   (first (fetch-all db relation)))
 
 
+ 
 
+(defn limit [relation v]
+  (assoc relation :limit v))
+
+(defn fields [query fd]
+  (assoc query :fields fd))
+
+(defn where [query wh]
+  (assoc query :where wh))
+
+(defn join* [{:keys [tables joins] :as q} type alias table on]
+  (let [a (or alias table)]
+    (assoc q
+      :tables (assoc tables a table)
+      :joins (conj (or joins []) [a type on]))))
+
+(defn from
+  ([q table] (join* q nil table table nil))
+  ([q table alias] (join* q nil table alias nil)))
+
+(defn join-cross
+  ([q table] (join* q :cross table table nil))
+  ([q table alias] (join* q :cross table alias nil)))
+
+(defmacro select
+  [& body]
+  `(-> (map->Select {}) ~@body))
+
+(defrecord Select [fields where order joins tables offet limit]
+  SqlLike
+  (as-sql [this] (as-sql (render-select this))))
