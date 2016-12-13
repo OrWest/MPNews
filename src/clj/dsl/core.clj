@@ -5,6 +5,7 @@
 
 
 (defn fetch-all [db relation]
+  (println (to-sql-params relation))
   (jdbc/query db (to-sql-params relation) :result-set-fn vec))
 
 (defn fetch-one [db relation]
@@ -19,8 +20,8 @@
 (defn fields [query fd]
   (assoc query :fields fd))
 
-(defn where [query wh]
-  (assoc query :where wh))
+(defn where [query expr]
+  (assoc query :where (conj-expression (:where query) expr)))
 
 (defn join* [{:keys [tables joins] :as q} type alias table on]
   (let [a (or alias table)]

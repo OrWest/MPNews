@@ -13,6 +13,13 @@
   ([] (Sql. "" nil))
   ([^Sql s1 ^Sql s2] (Sql. (str (.sql s1) " " (.sql s2)) (concat (.args s1) (.args s2)))))
 
+(defn conj-expression
+  [e1 e2]
+  (cond
+    (not (seq e1)) e2
+    (= 'and (first e1)) (conj (vec e1) e2)
+    :else (vector 'and e1 e2)))
+
 (defprotocol SqlLike
   (as-sql [this]))
 

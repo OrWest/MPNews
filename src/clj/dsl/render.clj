@@ -1,27 +1,28 @@
 (ns dsl.render
   (:use [dsl.helper]))
 
+(declare render-operator)
+(declare render-expression)
+
+(defn- function-symbol? [s]
+  (re-matches #"\w+" (name s)))
+
 (def NONE (->Sql "" nil))
 
-; большинство фукнций реализуется тривиально
+(defn render-order [s] NONE)
+
+
 (defn render-limit [s]
   (if-let [l (:limit s)]
     ['LIMIT l]
     NONE))
 
-(defn render-fields [s] '*)  ; пока будем возвращать все столбцы
-
-; эти функции реализуем чуть позже
-(defn render-where [s] NONE)
-(defn render-order [s] NONE)
-(defn render-expression [s] NONE)
+(defn render-fields [s] '*) 
 
 
-; вспомогательная функция
 (defn render-table
   [[alias table]]
   (if (= alias table)
-    ; если алиас и таблица совпадают, то не выводим 'AS'
     table
     [table 'AS alias]))
 
@@ -36,25 +37,41 @@
      :full '[FULL JOIN],
       jt jt}))
 
-; некоторые функции довольно сложные
 (defn render-from
   [{:keys [tables joins]}]
-  ; секции FROM может и не быть!
   (if (not (empty? joins))
     ['FROM
-     ; первый джоин
      (let [[a jn] (first joins)
            t (tables a)]
-       ; первый джоин должен делаться при помощи `(from ..)`
        (assert (nil? jn))
        (render-table [a t]))
-     ; перебираем оставшиеся джоины
      (for [[a jn c] (rest joins)
            :let [t (tables a)]]
-       [(render-join-type jn) ; связка JOIN XX или запятая
-        (render-table [a t])  ; имя таблицы и алиас
-        (if c ['ON (render-expression c)] NONE)])] ; секция 'ON'
+       [(render-join-type jn)
+        (render-table [a t])
+        (if c ['ON (render-expression c)] NONE)])]
         
+    NONE))
+
+(defn render-operator
+  [op & args]
+  (let [ra (map render-expression args)
+        lb (symbol "(")
+        rb (symbol ")")]
+    (if (function-symbol? op)
+      [op lb (interpose (symbol ",") ra) rb]
+      [lb (interpose op (map render-expression args)) rb])))
+
+(defn render-expression
+  [etree]
+  (if (and (sequential? etree) (symbol? (first etree)))
+    (apply render-operator etree)
+    etree))
+
+(defn render-where
+  [{:keys [where]}]
+  (if where
+    ['WHERE (render-expression where)]
     NONE))
 
 (defn render-select
