@@ -43,10 +43,8 @@
       :tables (assoc tables a table)
       :joins (conj (or joins []) [a type on]))))
 
-; этот код разворачивается в 5 объявлений макросов
 (do-template [join-name join-key] 
 
-  ; сам шаблон
   (defmacro join-name
     ([relation alias table cond]
      `(join* ~relation ~join-key ~alias ~table ~(prepare-expression cond)))
@@ -54,7 +52,6 @@
      `(let [table# ~table]
         (join* ~relation ~join-key nil table# ~(prepare-expression cond)))))
 
-  ; значения для параметров
   join-inner :inner,
   join :inner,
   join-right :right,
@@ -82,3 +79,19 @@
 (defrecord Select [fields where order joins tables offet limit]
   SqlLike
   (as-sql [this] (as-sql (render-select this))))
+
+;---- FIELD -------   
+
+(defn- map-vals
+  [f m]
+  (into {} (for [[k v] m] [k (f v)])))   
+
+(defn- prepare-fields [fs]
+  (map-vals prepare-expression fs))
+
+(defn fields* [query fd]
+  (assoc query :fields fd))
+
+(defmacro fields [query fd]
+  `(fields* ~query ~(prepare-fields fd)))
+

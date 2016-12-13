@@ -15,8 +15,16 @@
     ['LIMIT l]
     NONE))
 
-(defn render-fields [s] '*) 
+(defn render-field [[alias nm]]
+  (if (= alias nm)
+    nm  ; просто имя столбца
+    [(render-expression nm) 'AS alias]))
 
+(defn render-fields
+  [{:keys [fields]}]
+  (if (or (nil? fields) (= fields :*))
+    '*
+    (interpose (symbol ",") (map render-field fields))))
 
 (defn render-table
   [[alias table]]
