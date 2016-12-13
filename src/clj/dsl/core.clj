@@ -1,41 +1,63 @@
 (ns dsl.core
   (:use [dsl.helper]
         [dsl.render])
-  (:require [clojure.java.jdbc :as jdbc]))
+  (:require [clojure.java.jdbc :as jdbc]
+            [mpnews.log :as logger]))
 
 
 (defn fetch-all [db relation]
-  (println (to-sql-params relation))
-  (jdbc/query db (to-sql-params relation) :result-set-fn vec))
+  (let [request (to-sql-params relation)]
+     (logger/log "DSL" request)
+     (jdbc/query db request :result-set-fn vec)))
 
 (defn fetch-one [db relation]
   (first (fetch-all db relation)))
 
+;-----------
 
+(defn- join* [{:keys [tables joins] :as q} type alias table on]
+  (let [a (or alias table)]
+    (assoc q
+      :tables (assoc tables a table)
+      :joins (conj (or joins []) [a type on]))))
+
+(defn join-cross
+  ([q table] (join* q :cross table table nil))
+  ([q table alias] (join* q :cross table alias nil)))
+
+;-----------
  
-
 (defn limit [relation v]
   (assoc relation :limit v))
 
 (defn fields [query fd]
   (assoc query :fields fd))
 
-(defn where [query expr]
-  (assoc query :where (conj-expression (:where query) expr)))
-
-(defn join* [{:keys [tables joins] :as q} type alias table on]
-  (let [a (or alias table)]
-    (assoc q
-      :tables (assoc tables a table)
-      :joins (conj (or joins []) [a type on]))))
-
 (defn from
   ([q table] (join* q nil table table nil))
   ([q table alias] (join* q nil table alias nil)))
 
-(defn join-cross
-  ([q table] (join* q :cross table table nil))
-  ([q table alias] (join* q :cross table alias nil)))
+;-----------
+
+(defn where* [query expr]
+  (assoc query :where (conj-expression (:where query) expr)))
+
+(defn- canonize-operator-symbol
+  [op]
+  (get '{not= <>, == =} op op))
+
+(defn prepare-expression [e]
+  (if (seq? e)
+    `(vector
+       (quote ~(canonize-operator-symbol (first e)))
+       ~@(map prepare-expression (rest e)))
+    e))
+
+(defmacro where
+  [q body]
+  `(where* ~q ~(prepare-expression body)))
+
+;-----------
 
 (defmacro select
   [& body]

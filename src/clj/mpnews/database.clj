@@ -15,7 +15,7 @@
 
 (defn get-object-by-id [objectKey id]
   (let [db-key (keyword (str "id_" (name objectKey)))] 
-    (str (fetch-one mysql-db (select (from objectKey) (where ['= db-key id]))))))
+    (str (fetch-one mysql-db (select (from objectKey) (where (== db-key id)))))))
 
 (defn insert-object [objectKey object]
    (let [generated (db/insert! mysql-db objectKey object)]

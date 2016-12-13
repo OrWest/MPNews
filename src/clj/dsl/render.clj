@@ -9,8 +9,6 @@
 
 (def NONE (->Sql "" nil))
 
-(defn render-order [s] NONE)
-
 
 (defn render-limit [s]
   (if-let [l (:limit s)]
@@ -82,6 +80,5 @@
      [render-fields
       render-from
       render-where
-      render-order
       render-limit])])
 
